@@ -135,17 +135,45 @@ class FileConfigStore(ConfigStore):
         pass
 
     def __open_collections(self):
-        self.users = self.path / "users"
         self.users.mkdir(exist_ok=True, parents=True)
-        self.runs = self.path / "runs"
         self.runs.mkdir(exist_ok=True, parents=True)
-        self.tasks = self.path / "tasks"
         self.tasks.mkdir(exist_ok=True, parents=True)
-        self.datasplits = self.path / "datasplits"
         self.datasplits.mkdir(exist_ok=True, parents=True)
-        self.arrays = self.path / "arrays"
         self.arrays.mkdir(exist_ok=True, parents=True)
-        self.architectures = self.path / "architectures"
         self.architectures.mkdir(exist_ok=True, parents=True)
-        self.trainers = self.path / "trainers"
         self.trainers.mkdir(exist_ok=True, parents=True)
+
+    @property
+    def users(self) -> Path:
+        return self.path / "users"
+    
+    @property
+    def runs(self) -> Path:
+        return self.path / "runs"
+    
+    @property
+    def tasks(self) -> Path:
+        return self.path / "tasks"
+    
+    @property
+    def datasplits(self) -> Path:
+        return self.path / "datasplits"
+    
+    @property
+    def arrays(self) -> Path:
+        return self.path / "arrays"
+    
+    @property
+    def architectures(self) -> Path:
+        return self.path / "architectures"
+
+    @property
+    def trainers(self) -> Path:
+        return self.path / "trainers"
+
+    @property
+    def datasets(self) -> Path:
+        return self.path / "datasets"
+
+    def delete_config(self, database: Path, config_name: str) -> None:
+        (database / config_name).unlink()
