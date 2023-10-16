@@ -13,6 +13,7 @@ setup(
     packages=find_packages(),
     entry_points={"console_scripts": ["dacapo=dacapo.cli:cli"]},
     include_package_data=True,
+    package_data={"dacapo": ["py.typed"]},
     install_requires=[
         "numpy",
         "pyyaml",
