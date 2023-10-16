@@ -6,3 +6,13 @@ from .reject_if_empty import RejectIfEmpty
 from .copy import CopyMask
 from .dacapo_points_source import GraphSource
 from .product import Product
+from .e11 import (
+    CustomNormalize,
+    CustomNoise,
+    ShuffleChannels,
+    Smooth,
+    ChannelWiseIntensityAugment,
+    ExpandLabels,
+    FillHoles,
+    CreateMask,
+)
