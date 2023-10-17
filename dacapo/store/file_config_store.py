@@ -176,5 +176,4 @@ class FileConfigStore(ConfigStore):
         return self.path / "datasets"
 
     def delete_config(self, database: Path, config_name: str) -> None:
-        print(database, config_name)
-        (database / config_name).unlink()
+        (database / f"{config_name}.toml").unlink()
