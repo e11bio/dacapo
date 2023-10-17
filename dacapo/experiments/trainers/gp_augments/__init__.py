@@ -9,6 +9,6 @@ from .intensity_scale_shift_config import IntensityScaleShiftAugmentConfig  # no
 # from .shuffle_channels import ShuffleChannelsConfig  # noqa
 # from .smooth import SmoothConfig  # noqa
 # from .channel_wise_intensity_augment import ChannelWiseIntensityAugmentConfig  # noqa
-# from .expand_labels import ExpandLabelsConfig  # noqa
+from .expand_labels import ExpandMaskConfig  # noqa
 # from .fill_holes import FillHolesConfig  # noqa
 # from .create_mask import CreateMaskConfig  # noqa
