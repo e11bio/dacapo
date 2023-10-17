@@ -44,7 +44,7 @@ class WatershedPostProcessor(PostProcessor):
         # if a previous segmentation is provided, it must have a "grid graph"
         # in its metadata.
         pred_data = self.prediction_array[self.prediction_array.roi]
-        affs = pred_data[: len(self.offsets)]
+        affs = pred_data[: len(self.offsets)].astype(np.float64)
         segmentation = mws.agglom(
             affs - 0.5,
             self.offsets,
@@ -64,7 +64,9 @@ class WatershedPostProcessor(PostProcessor):
 
         filtered_fragments = np.array(filtered_fragments, dtype=segmentation.dtype)
         replace = np.zeros_like(filtered_fragments)
-        segmentation = npi.remap(segmentation, filtered_fragments, replace)
+        segmentation = npi.remap(
+            segmentation.flatten(), filtered_fragments, replace
+        ).reshape(segmentation.shape)
 
         output_array[self.prediction_array.roi] = segmentation
 
