@@ -138,10 +138,12 @@ class GunpowderTrainer(Trainer):
                     ensure_centered=sample_points_key
                     if points_source is not None
                     else None,
+                    mask=mask_placeholder,
+                    min_masked=1e-3,
                 )
             )
 
-            dataset_source += gp.Reject(mask_placeholder, 1e-6)
+            # dataset_source += gp.Reject(mask_placeholder, 1e-3)
 
             for augment in self.augments:
                 dataset_source += augment.node(raw_key, gt_key, mask_key)
