@@ -44,7 +44,7 @@ class AffinitiesPredictor(Predictor):
         return self.neighborhood[0].dims
 
     def sigma(self, voxel_size):
-        voxel_dist = max(voxel_size)  # arbitrarily chosen
+        voxel_dist = voxel_size[-1]  # arbitrarily chosen
         num_voxels = 10  # arbitrarily chosen
         sigma = voxel_dist * num_voxels
         return Coordinate((sigma,) * self.dims)
