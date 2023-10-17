@@ -168,12 +168,12 @@ class GunpowderTrainer(Trainer):
 
         pipeline += Product(dataset_weight_key, datasets_weight_key, weight_key)
 
+        # stack to create a batch dimension
+        pipeline += gp.Stack(self.batch_size)
+
         # Trainer attributes:
         if self.num_data_fetchers > 1:
             pipeline += gp.PreCache(num_workers=self.num_data_fetchers)
-
-        # stack to create a batch dimension
-        pipeline += gp.Stack(self.batch_size)
 
         # print profiling stats
         pipeline += gp.PrintProfilingStats(every=self.print_profiling)
