@@ -181,7 +181,9 @@ class AffinitiesPredictor(Predictor):
                     for a, b in zip(pad_pos, self.lsd_pad(target_spec.voxel_size))
                 ]
             )
-        gt_spec.roi = gt_spec.roi.grow(pad_neg, pad_pos)
+        gt_spec.roi = gt_spec.roi.grow(pad_neg, pad_pos).snap_to_grid(
+            target_spec.voxel_size
+        )
         gt_spec.dtype = None
         return gt_spec
 
