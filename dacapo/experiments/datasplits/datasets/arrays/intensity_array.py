@@ -68,6 +68,15 @@ class IntensitiesArray(Array):
         )
         return normalized
 
+    def to_ndarray(self, roi: Roi, fill_value):
+        intensities = self._source_array.to_ndarray(
+            roi, fill_value=fill_value * (self._max - self._min) + self._min
+        )
+        normalized = (intensities.astype(np.float32) - self._min) / (
+            self._max - self._min
+        )
+        return normalized
+
     def _can_neuroglance(self):
         return self._source_array._can_neuroglance()
 

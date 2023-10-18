@@ -62,7 +62,7 @@ class ZarrArray(Array):
 
     @lazy_property.LazyProperty
     def _daisy_array(self) -> funlib.persistence.Array:
-        return funlib.persistence.open_ds(f"{self.file_name}", self.dataset)
+        return funlib.persistence.open_ds(f"{self.file_name}", self.dataset, mode="r+")
 
     @lazy_property.LazyProperty
     def voxel_size(self) -> Coordinate:
@@ -100,6 +100,12 @@ class ZarrArray(Array):
         data: np.ndarray = funlib.persistence.Array(
             self.data, self.roi, self.voxel_size
         ).to_ndarray(roi=roi)
+        return data
+
+    def to_ndarray(self, roi: Roi, fill_value):
+        data: np.ndarray = funlib.persistence.Array(
+            self.data, self.roi, self.voxel_size
+        ).to_ndarray(roi=roi, fill_value=fill_value)
         return data
 
     def __setitem__(self, roi: Roi, value: np.ndarray):
