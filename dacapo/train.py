@@ -136,7 +136,8 @@ def train_run(
                     compute_context.device,
                 ),
                 "training",
-                iterations,
+                trained_until + iterations,
+                initial=trained_until,
             ):
                 run.training_stats.add_iteration_stats(iteration_stats)
 
