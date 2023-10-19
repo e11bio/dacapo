@@ -35,7 +35,8 @@ setup(
         "mwatershed>=0.1",
         "funlib.persistence>=0.1",
         "funlib.evaluate @ git+https://github.com/pattonw/funlib.evaluate",
-        "gunpowder>=1.3",
+        # "gunpowder>=1.3",
+        "gunpowder @ git+https://github.com/funkelab/gunpowder@skip_node",
         "lsds>=0.1.3",
     ],
 )
