@@ -21,14 +21,20 @@ class ChannelWiseIntensityAugmentConfig(AugmentConfig):
             "help_text": "Set to False if modified values should not be clipped to [0, 1]"
         },
     )
+    p: float = attr.ib(
+        default=1.0,
+        metadata={
+            "help_text": "Probability to apply the augmentation. Defaults to 1.0 (always apply)"
+        },
+    )
 
     def node(self, _raw_key=None, _gt_key=None, _mask_key=None):
         return ChannelWiseIntensityAugment(
             _raw_key,
-            augment_every=1,
             scale_min=self.scale[0],
             scale_max=self.scale[1],
             shift_min=self.shift[0],
             shift_max=self.shift[1],
             clip=self.clip,
+            p=self.p,
         )

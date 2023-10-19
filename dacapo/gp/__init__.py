@@ -7,12 +7,12 @@ from .copy import CopyMask
 from .dacapo_points_source import GraphSource
 from .product import Product
 from .e11 import (
-    CustomNormalize,
-    CustomNoise,
-    ShuffleChannels,
-    Smooth,
+    Blur,
     ChannelWiseIntensityAugment,
+    ChannelWiseNoise,
+    CreateMask,
     ExpandLabels,
     FillHoles,
-    CreateMask,
+    ShuffleChannels,
+    ZeroChannels
 )
