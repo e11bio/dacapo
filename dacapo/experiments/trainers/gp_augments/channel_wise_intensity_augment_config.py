@@ -21,6 +21,15 @@ class ChannelWiseIntensityAugmentConfig(AugmentConfig):
             "help_text": "Set to False if modified values should not be clipped to [0, 1]"
         },
     )
+    z_section_wise: bool = attr.ib(
+        default=False,
+        metadata={
+            "help_text": (
+                "Perform the augmentation z-section wise. Assumes z is"
+                "the first spatial dimension."
+            )
+        },
+    )
     p: float = attr.ib(
         default=1.0,
         metadata={
@@ -36,5 +45,6 @@ class ChannelWiseIntensityAugmentConfig(AugmentConfig):
             shift_min=self.shift[0],
             shift_max=self.shift[1],
             clip=self.clip,
+            z_section_wise=self.z_section_wise,
             p=self.p,
         )

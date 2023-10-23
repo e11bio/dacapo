@@ -1,11 +1,13 @@
 from .augment_config import AugmentConfig
-from typing import List, Tuple
+from dacapo.gp.elastic_fuse_augment import ElasticFuseAugment
+
 import attr
-import gunpowder as gp
+
+from typing import List, Tuple
 
 
 @attr.s
-class ElasticAugmentConfig(AugmentConfig):
+class ElasticFuseAugmentConfig(AugmentConfig):
     control_point_spacing: List[int] = attr.ib(
         metadata={
             "help_text": (
@@ -14,7 +16,7 @@ class ElasticAugmentConfig(AugmentConfig):
             )
         }
     )
-    jitter_sigma: List[float] = attr.ib(
+    control_point_displacement_sigma: List[float] = attr.ib(
         metadata={
             "help_text": (
                 "Standard deviation of control point displacement distribution, in world coordinates."
@@ -26,30 +28,26 @@ class ElasticAugmentConfig(AugmentConfig):
             "help_text": ("Interval to randomly sample rotation angles from (0, 2PI).")
         }
     )
-    scale_interval: Tuple[float, float] = attr.ib(
-        default=(1.0, 1.0),
-        metadata={"help_text": ("Interval to randomly scale factors from")}
-    )
     subsample: int = attr.ib(
         default=1,
         metadata={
             "help_text": "Perform the elastic augmentation on a grid downsampled by this factor."
         },
     )
-    p: float = attr.ib(
-        default=1.0,
+    uniform_3d_rotation: bool = attr.ib(
+        default=False,
         metadata={
-            "help_text": "Probability to apply the augmentation. Defaults to 1.0 \
-                (always apply)"
+            "help_text": "Whether or not to perform rotations uniformly on a 3D sphere. This "
+            "ignores the rotation interval due to the difficulty of parameterizing "
+            "3D rotations."
         },
     )
 
     def node(self, _raw_key=None, _gt_key=None, _mask_key=None):
-        return gp.ElasticAugment(
+        return ElasticFuseAugment(
             control_point_spacing=self.control_point_spacing,
-            jitter_sigma=self.jitter_sigma,
+            control_point_displacement_sigma=self.control_point_displacement_sigma,
             rotation_interval=self.rotation_interval,
-            scale_interval=self.scale_interval,
             subsample=self.subsample,
-            p=self.p,
+            uniform_3d_rotation=self.uniform_3d_rotation,
         )
