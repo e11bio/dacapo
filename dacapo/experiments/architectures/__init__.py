@@ -5,3 +5,4 @@ from .dummy_architecture_config import (
     DummyArchitecture,
 )  # noqa
 from .cnnectome_unet_config import CNNectomeUNetConfig, CNNectomeUNet  # noqa
+from .funlib_unet_config import FunlibUNetConfig, FunlibUNet  # noqa
