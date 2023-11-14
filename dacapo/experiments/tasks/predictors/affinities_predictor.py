@@ -17,7 +17,12 @@ from typing import List
 
 
 class AffinitiesPredictor(Predictor):
-    def __init__(self, neighborhood: List[Coordinate], lsds: bool = True):
+    def __init__(
+        self,
+        neighborhood: List[Coordinate],
+        lsds: bool = True,
+        background_as_object: bool = False,
+    ):
         self.neighborhood = neighborhood
         self.lsds = lsds
         if lsds:
@@ -32,6 +37,8 @@ class AffinitiesPredictor(Predictor):
                 )
         else:
             self.num_lsds = 0
+
+        self.background_as_object = background_as_object
 
     def extractor(self, voxel_size):
         if self._extractor is None:
@@ -86,7 +93,9 @@ class AffinitiesPredictor(Predictor):
             label_data = label_data[0]
         else:
             axes = ["c"] + axes
-        affinities = seg_to_affgraph(label_data, self.neighborhood).astype(np.float32)
+        affinities = seg_to_affgraph(
+            label_data + int(self.background_as_object), self.neighborhood
+        ).astype(np.float32)
         if self.lsds:
             descriptors = self.extractor(gt.voxel_size).get_descriptors(
                 segmentation=label_data,
@@ -142,16 +151,16 @@ class AffinitiesPredictor(Predictor):
             moving_counts=moving_class_counts,
         )
         if self.lsds:
-            lsd_weights, moving_lsd_class_counts = balance_weights(
-                (gt[target.roi] > 0).astype(np.uint8),
-                2,
-                slab=(-1,) * len(gt.axes),
-                masks=[mask_data],
-                moving_counts=moving_lsd_class_counts,
-            )
+            # lsd_weights, moving_lsd_class_counts = balance_weights(
+            #     (gt[target.roi] > 0).astype(np.uint8),
+            #     2,
+            #     slab=(-1,) * len(gt.axes),
+            #     masks=[mask_data],
+            #     moving_counts=moving_lsd_class_counts,
+            # )
             lsd_weights = np.ones(
                 (self.num_lsds,) + aff_weights.shape[1:], dtype=aff_weights.dtype
-            ) * lsd_weights.reshape((1,) + aff_weights.shape[1:])
+            ) * (gt[target.roi] > 0).reshape((1,) + aff_weights.shape[1:])
             return NumpyArray.from_np_array(
                 np.concatenate([aff_weights, lsd_weights], axis=0),
                 target.roi,

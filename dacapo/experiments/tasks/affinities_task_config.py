@@ -30,3 +30,13 @@ class AffinitiesTaskConfig(TaskConfig):
             "It has been shown that lsds as an auxiliary task can help affinity predictions."
         },
     )
+    background_as_object: bool = attr.ib(
+        default=False,
+        metadata={
+            "help_text": (
+                "Whether to treat the background as a separate object. "
+                "If set to false background should get an affinity near 0. If "
+                "set to true, the background should also have high affinity with other background."
+            )
+        },
+    )

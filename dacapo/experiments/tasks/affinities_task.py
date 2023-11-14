@@ -12,7 +12,9 @@ class AffinitiesTask(Task):
         """Create a `DummyTask` from a `DummyTaskConfig`."""
 
         self.predictor = AffinitiesPredictor(
-            neighborhood=task_config.neighborhood, lsds=task_config.lsds
+            neighborhood=task_config.neighborhood,
+            lsds=task_config.lsds,
+            background_as_object=task_config.background_as_object,
         )
         self.loss = AffinitiesLoss(len(task_config.neighborhood))
         self.post_processor = WatershedPostProcessor(offsets=task_config.neighborhood)
