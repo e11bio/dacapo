@@ -29,3 +29,4 @@ class GunpowderTrainerConfig(TrainerConfig):
     )
     min_masked: Optional[float] = attr.ib(default=0.15)
     clip_raw: bool = attr.ib(default=True)
+    root_weights: bool = attr.ib(default=False)

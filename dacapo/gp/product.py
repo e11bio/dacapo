@@ -6,10 +6,17 @@ class Product(gp.BatchFilter):
     multiplies two arrays
     """
 
-    def __init__(self, x1_key: gp.ArrayKey, x2_key: gp.ArrayKey, y_key: gp.ArrayKey):
+    def __init__(
+        self,
+        x1_key: gp.ArrayKey,
+        x2_key: gp.ArrayKey,
+        y_key: gp.ArrayKey,
+        root: bool = False,
+    ):
         self.x1_key = x1_key
         self.x2_key = x2_key
         self.y_key = y_key
+        self.root = root
 
     def setup(self):
         self.enable_autoskip()
@@ -25,7 +32,8 @@ class Product(gp.BatchFilter):
         outputs = gp.Batch()
 
         outputs[self.y_key] = gp.Array(
-            batch[self.x1_key].data * batch[self.x2_key].data,
+            (batch[self.x1_key].data * batch[self.x2_key].data)
+            ** (0.5 if self.root else 1),
             batch[self.x1_key].spec.copy(),
         )
 

@@ -36,11 +36,11 @@ class GunpowderTrainer(Trainer):
         self.num_data_fetchers = trainer_config.num_data_fetchers
         self.print_profiling = 100
         self.snapshot_iteration = trainer_config.snapshot_interval
-        self.min_masked = trainer_config.min_masked
 
         self.augments = trainer_config.augments
         self.mask_integral_downsample_factor = 4
         self.clip_raw = trainer_config.clip_raw
+        self.root_weights = trainer_config.root_weights
 
         self.scheduler = None
 
@@ -168,7 +168,9 @@ class GunpowderTrainer(Trainer):
             mask_key=mask_key,
         )
 
-        pipeline += Product(dataset_weight_key, datasets_weight_key, weight_key)
+        pipeline += Product(
+            dataset_weight_key, datasets_weight_key, weight_key, root=self.root_weights
+        )
 
         # stack to create a batch dimension
         pipeline += gp.Stack(self.batch_size)
