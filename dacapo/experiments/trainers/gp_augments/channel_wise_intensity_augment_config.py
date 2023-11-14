@@ -37,7 +37,7 @@ class ChannelWiseIntensityAugmentConfig(AugmentConfig):
         },
     )
 
-    def node(self, _raw_key=None, _gt_key=None, _mask_key=None):
+    def node(self, _raw_key=None, _gt_key=None, _mask_key=None, _voxel_size=None):
         return ChannelWiseIntensityAugment(
             _raw_key,
             scale_min=self.scale[0],

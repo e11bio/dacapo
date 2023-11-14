@@ -43,6 +43,50 @@ class ChannelWiseNoiseAugment(gp.NoiseAugment):
             raw.data[c] = self._apply_noise(raw.data[c], seed=request.random_seed)
 
 
+
+class ShuffleChannels(gp.BatchFilter):
+    def __init__(self, array):
+        self.array = array
+
+    def process(self, batch, request):
+        array = batch.arrays[self.array]
+
+        num_channels = array.data.shape[0]
+
+        channel_perm = np.random.permutation(num_channels)
+
+        array.data = array.data[channel_perm]
+
+
+class SampleChannels(gp.BatchFilter):
+    def __init__(self, array, num_channels: int):
+        self.array = array
+        self.num_channels = num_channels
+
+    def process(self, batch, request):
+        array = batch.arrays[self.array]
+
+        num_channels = array.data.shape[0]
+
+        channel_perm = np.array(
+            [random.randint(0, num_channels - 1) for _ in range(self.num_channels)]
+        )
+
+        array.data = array.data[channel_perm]
+
+
+class Smooth(gp.BatchFilter):
+    def __init__(self, array, sigma):
+        self.array = array
+        self.sigma = sigma
+
+    def process(self, batch, request):
+        array = batch[self.array]
+
+        for c in range(array.data.shape[0]):
+            array.data[c] = gaussian_filter(array.data[c], sigma=self.sigma)
+
+
 class ChannelWiseIntensityAugment(gp.IntensityAugment):
     # assumes 4d raw data of c,z,y,x
     def __init__(self, array, **kwargs):

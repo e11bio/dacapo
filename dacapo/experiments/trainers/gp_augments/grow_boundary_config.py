@@ -19,7 +19,7 @@ class GrowBoundaryConfig(AugmentConfig):
         metadata={"help_text": "Do not grow a boundary in the z direction."},
     )
 
-    def node(self, _raw_key=None, _gt_key=None, _mask_key=None):
+    def node(self, _raw_key=None, _gt_key=None, _mask_key=None, _voxel_size=None):
         return CustomGrowBoundary(
             labels=_gt_key,
             mask=_mask_key,

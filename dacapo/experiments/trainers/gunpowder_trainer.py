@@ -146,7 +146,7 @@ class GunpowderTrainer(Trainer):
             # dataset_source += gp.Reject(mask_placeholder, 1e-3)
 
             for augment in self.augments:
-                dataset_source += augment.node(raw_key, gt_key, mask_key)
+                dataset_source += augment.node(raw_key, gt_key, mask_key, prediction_voxel_size)
 
             # Add predictor nodes to dataset_source
             dataset_source += DaCapoTargetFilter(

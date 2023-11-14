@@ -15,5 +15,5 @@ class UpdateMaskConfig(AugmentConfig):
         },
     )
 
-    def node(self, _raw_key=None, _gt_key=None, _mask_key=None):
+    def node(self, _raw_key=None, _gt_key=None, _mask_key=None, _voxel_size=None):
         return UpdateMask(labels=_gt_key, mask=_mask_key, mask_type=self.mask_type)

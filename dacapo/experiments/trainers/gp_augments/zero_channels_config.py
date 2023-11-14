@@ -17,7 +17,7 @@ class ZeroChannelsConfig(AugmentConfig):
         },
     )
 
-    def node(self, _raw_key=None, _gt_key=None, _mask_key=None):
+    def node(self, _raw_key=None, _gt_key=None, _mask_key=None, _voxel_size=None):
         return ZeroChannels(
             _raw_key,
             num_channels=self.num_channels,

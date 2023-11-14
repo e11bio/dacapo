@@ -43,7 +43,7 @@ class ElasticFuseAugmentConfig(AugmentConfig):
         },
     )
 
-    def node(self, _raw_key=None, _gt_key=None, _mask_key=None):
+    def node(self, _raw_key=None, _gt_key=None, _mask_key=None, _voxel_size=None):
         return ElasticFuseAugment(
             control_point_spacing=self.control_point_spacing,
             control_point_displacement_sigma=self.control_point_displacement_sigma,

@@ -13,7 +13,7 @@ class ChannelWiseNoiseAugmentConfig(AugmentConfig):
         },
     )
 
-    def node(self, _raw_key=None, _gt_key=None, _mask_key=None):
+    def node(self, _raw_key=None, _gt_key=None, _mask_key=None, _voxel_size=None):
         return ChannelWiseNoiseAugment(
             _raw_key,
             p=self.p,

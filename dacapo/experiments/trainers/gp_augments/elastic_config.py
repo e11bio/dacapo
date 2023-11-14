@@ -44,7 +44,7 @@ class ElasticAugmentConfig(AugmentConfig):
         },
     )
 
-    def node(self, _raw_key=None, _gt_key=None, _mask_key=None):
+    def node(self, _raw_key=None, _gt_key=None, _mask_key=None, _voxel_size=None):
         return gp.ElasticAugment(
             control_point_spacing=self.control_point_spacing,
             jitter_sigma=self.jitter_sigma,
