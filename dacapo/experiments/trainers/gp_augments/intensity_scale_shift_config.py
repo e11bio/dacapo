@@ -14,5 +14,5 @@ class IntensityScaleShiftAugmentConfig(AugmentConfig):
         metadata={"help_text": "A constant to shift your intensities."}
     )
 
-    def node(self, raw_key: gp.ArrayKey, _gt_key=None, _mask_key=None):
+    def node(self, raw_key: gp.ArrayKey, _gt_key=None, _mask_key=None, _voxel_size=None):
         return gp.IntensityScaleShift(raw_key, scale=self.scale, shift=self.shift)

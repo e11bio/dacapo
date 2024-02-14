@@ -16,7 +16,9 @@ class GammaAugmentConfig(AugmentConfig):
         }
     )
 
-    def node(self, raw_key: gp.ArrayKey, _gt_key=None, _mask_key=None):
+    def node(
+        self, raw_key: gp.ArrayKey, _gt_key=None, _mask_key=None, _voxel_size=None
+    ):
         return GammaAugment(
             [raw_key], gamma_min=self.gamma_range[0], gamma_max=self.gamma_range[1]
         )

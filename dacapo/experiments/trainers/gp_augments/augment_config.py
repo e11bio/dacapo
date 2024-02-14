@@ -14,7 +14,11 @@ class AugmentConfig(ABC):
 
     @abstractmethod
     def node(
-        self, raw_key: gp.ArrayKey, gt_key: gp.ArrayKey, mask_key: gp.ArrayKey
+        self,
+        raw_key: gp.ArrayKey,
+        gt_key: gp.ArrayKey,
+        mask_key: gp.ArrayKey,
+        voxel_size: gp.Coordinate,
     ) -> gp.BatchFilter:
         """
         return a gunpowder node that performs this augmentation
