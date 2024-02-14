@@ -1,5 +1,5 @@
 from .augment_config import AugmentConfig
-from dacapo.gp.e11 import ChannelWiseIntensityAugment
+from dacapo.gp.contrib import ChannelWiseIntensityAugment
 
 import attr
 from typing import Tuple

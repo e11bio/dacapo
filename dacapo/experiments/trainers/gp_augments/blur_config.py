@@ -1,5 +1,5 @@
 from .augment_config import AugmentConfig
-from dacapo.gp.e11 import Blur
+from dacapo.gp.contrib import Blur
 
 import attr
 from typing import Tuple

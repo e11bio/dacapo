@@ -1,5 +1,5 @@
 from .augment_config import AugmentConfig
-from dacapo.gp.e11 import UpdateMask
+from dacapo.gp.contrib import UpdateMask
 import attr
 import gunpowder as gp
 

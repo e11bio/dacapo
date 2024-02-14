@@ -1,5 +1,5 @@
 from .augment_config import AugmentConfig
-from dacapo.gp.e11 import SampleChannels
+from dacapo.gp.contrib import SampleChannels
 
 import attr
 

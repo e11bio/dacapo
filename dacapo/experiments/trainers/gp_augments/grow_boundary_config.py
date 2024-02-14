@@ -1,5 +1,5 @@
 from .augment_config import AugmentConfig
-from dacapo.gp.e11 import CustomGrowBoundary
+from dacapo.gp.contrib import CustomGrowBoundary
 import attr
 import gunpowder as gp
 
